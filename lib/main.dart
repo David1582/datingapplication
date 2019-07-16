@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttery/layout.dart';
 
 void main() => runApp(MyApp());
 
@@ -78,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: new Padding(
         padding: const EdgeInsets.all(16.0),
         child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             new RoundIconButton.small(
               icon: Icons.refresh,
@@ -121,12 +123,204 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  _buildCardStack() {
+    return new AnchoredOverlay(
+      showOverlay: true,
+      child: new Center(),
+      overlayBuilder: (BuildContext context, Rect anchorBounds, Offset anchor) {
+        return CenterAbout(
+          position: anchor,
+          child: new Container(
+            width: anchorBounds.width,
+            height: anchorBounds.height,
+            padding: const EdgeInsets.all(16.0),
+            child: new ProfileCard(),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildAppBar(),
-    body: new Center(),
+    body: _buildCardStack(),
     bottomNavigationBar: _buildBottomBar(),
+    );
+  }
+}
+
+class ProfileCard extends StatefulWidget {
+  @override
+  _ProfileCardState createState() => _ProfileCardState();
+}
+
+class _ProfileCardState extends State<ProfileCard> {
+  Widget _buildBackground() {
+    return new PhotoBrowser(
+      photoAssetPaths: [
+        'assets/Gabe1.png',
+        'assets/Gabe2.png',
+        'assets/Gabe3.png',
+      ],
+      visiblePhotoIndex: 0,
+    );
+  }
+ 
+  Widget _buildProfileSynopsis() {
+    return new Positioned(
+      left: 0.0,
+      right: 0.0,
+      bottom: 0.0,
+      child: new Container(
+        decoration: new BoxDecoration(
+          gradient: new LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withOpacity(0.8),
+            ],
+          ),
+        ),
+        padding: const EdgeInsets.all(24.0),
+        child: new Row(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            new Expanded(
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  new Text(
+                    'First Last',
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  new Text(
+                    'Some Description',
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            new Icon(
+              Icons.info,
+              color: Colors.white
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10.0),
+        boxShadow: [
+          new BoxShadow(
+            color: const Color(0x11000000),
+            blurRadius: 5.0,
+            spreadRadius: 2.0,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: new BorderRadius.circular(10.0),
+        child: new Material(
+          child: new Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              _buildBackground(),
+              _buildProfileSynopsis(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PhotoBrowser extends StatefulWidget {
+  final List<String> photoAssetPaths;
+  final int visiblePhotoIndex;
+
+  PhotoBrowser({
+    this.photoAssetPaths,
+    this.visiblePhotoIndex,
+  });
+
+
+  @override
+  _PhotoBrowserState createState() => _PhotoBrowserState();
+}
+
+class _PhotoBrowserState extends State<PhotoBrowser> {
+  int visiblePhotoIndex;
+
+
+  @override
+  void initState() {
+    super.initState();
+    visiblePhotoIndex = widget.visiblePhotoIndex;
+  }
+
+  @override
+  void didUpdateWidget(PhotoBrowser oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.visiblePhotoIndex != oldWidget.visiblePhotoIndex) {
+      setState(() {
+       visiblePhotoIndex = widget.visiblePhotoIndex;
+      });
+    }
+  }
+
+  void _prevImage() {
+    setState(() {
+     visiblePhotoIndex = visiblePhotoIndex > 0 ? visiblePhotoIndex - 1 : 0; 
+    });
+  }
+  
+  void _nextImage() {
+    setState(() {
+     visiblePhotoIndex = visiblePhotoIndex < widget.photoAssetPaths.length - 1 ? visiblePhotoIndex + 1 : visiblePhotoIndex; 
+    });
+  }
+
+  Widget _buildPhotoControls() {
+    return new Container();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        // photo
+        new Image.asset(
+          widget.photoAssetPaths[visibilePhotoIndex],
+          fit: BoxFit.cover,
+        ),
+
+        // photo indicator
+        new Positioned(
+          top: 0.0,
+          left: 0.0,
+          right: 0.0,
+          child: new Container(),
+        )
+
+        // photo controls
+        _buildPhotoControls(),
+      ],
     );
   }
 }
