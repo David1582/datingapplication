@@ -1,8 +1,5 @@
+import 'package:datingapplication/photos.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttery/layout.dart';
-import 'package:image/image.dart';
-
-
 
 class ProfileCard extends StatefulWidget {
   @override
