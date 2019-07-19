@@ -1,6 +1,5 @@
 import 'package:datingapplication/cards.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttery/layout.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,9 +7,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
+      theme: new ThemeData(
         primaryColorBrightness: Brightness.light,
         primarySwatch: Colors.blue,
       ),
@@ -124,29 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  _buildCardStack() {
-    return new AnchoredOverlay(
-      showOverlay: true,
-      child: new Center(),
-      overlayBuilder: (BuildContext context, Rect anchorBounds, Offset anchor) {
-        return CenterAbout(
-          position: anchor,
-          child: new Container(
-            width: anchorBounds.width,
-            height: anchorBounds.height,
-            padding: const EdgeInsets.all(16.0),
-            child: new ProfileCard(),
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildAppBar(),
-    body: _buildCardStack(),
+    body: new DraggableCard(),
     bottomNavigationBar: _buildBottomBar(),
     );
   }

@@ -12,7 +12,7 @@ class PhotoBrowser extends StatefulWidget {
 
 
   @override
-  _PhotoBrowserState createState() => _PhotoBrowserState();
+  _PhotoBrowserState createState() => new _PhotoBrowserState();
 }
 
 class _PhotoBrowserState extends State<PhotoBrowser> {
