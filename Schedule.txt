@@ -1,0 +1,12 @@
+Login
+Allow users to login via Facebook/Instagram, etc
+Database to hold each user UUID, User, Pass
+
+Homepage
+Shows cards displaying potential matches in center screen
+
+Profile page
+Database to hold bio as string and user's uploaded pictures
+
+Subscription
+Payment for additional services
