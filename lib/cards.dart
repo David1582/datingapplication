@@ -3,63 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttery/layout.dart';
 
 
-class DraggableCard extends StatefulWidget {
-  @override
-  _DraggableCardState createState() => _DraggableCardState();
-}
-
-class _DraggableCardState extends State<DraggableCard> {
-    Offset cardOffset = const Offset(0.0, 0.0);
-    Offset dragStart;
-    Offset dragPosition;
-
-  void _onPanStart(DragStartDetails details) {
-    dragStart = details.globalPosition;
-  }
-
-  void _onPanUpdate(DragUpdateDetails details) {
-    setState(() {
-      dragPosition = details.globalPosition;
-      cardOffset = dragPosition - dragStart;
-    });
-  }
-
-  void _onPanEnd(DragEndDetails details) {
-    setState(() {
-     dragStart = null;
-     dragPosition = null;
-     cardOffset = const Offset(0.0, 0.0);
-    });
-  }
 
 
-  @override
-  Widget build(BuildContext context) {
-    return new AnchoredOverlay(
-      showOverlay: true,
-      child: new Center(),
-      overlayBuilder: (BuildContext context, Rect anchorBounds, Offset anchor) {
-        return CenterAbout(
-          position: anchor,
-          child: new Transform(
-            transform: new Matrix4.translationValues(cardOffset.dx, cardOffset.dy, 0.0),
-            child: new Container(
-              width: anchorBounds.width,
-              height: anchorBounds.height,
-              padding: const EdgeInsets.all(16.0),
-              child: new GestureDetector(
-                onPanStart: _onPanStart,
-                onPanUpdate: _onPanUpdate,
-                onPanEnd: _onPanEnd,
-                child: new ProfileCard(),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
 
 class ProfileCard extends StatefulWidget {
   @override
@@ -70,9 +15,9 @@ class _ProfileCardState extends State<ProfileCard> {
   Widget _buildBackground() {
     return new PhotoBrowser(
       photoAssetPaths: [
-        'assets/Gabe1.png',
-        'assets/Gabe2.png',
-        'assets/Gabe3.png',
+        'assets/Elon.png',
+        'assets/Sunmi.png',
+        'assets/Hyuna.png',
       ],
       visiblePhotoIndex: 0,
     );

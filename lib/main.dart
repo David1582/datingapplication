@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> {  
 
   Widget _buildAppBar() {
     return new AppBar(
@@ -128,7 +128,20 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildAppBar(),
-    body: new DraggableCard(),
+    body: Container(
+      // get rid of height & width lines to let the card resume full size
+      height: 500,
+      width: 300,
+      child: Draggable(
+        feedback: Container(
+          child: Text('Move me!'),
+        ),
+        child: ProfileCard(),
+        childWhenDragging: Container(
+          child: Text('Hello There'),
+        ),
+      ),
+    ),
     bottomNavigationBar: _buildBottomBar(),
     );
   }
