@@ -128,19 +128,31 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildAppBar(),
-    body: Container(
-      // get rid of height & width lines to let the card resume full size
-      height: 500,
-      width: 300,
-      child: Draggable(
-        feedback: Container(
-          child: Text('Move me!'),
+    body: Row(
+      children: <Widget>[
+        Container(
+          // get rid of height & width lines to let the card resume full size, or make MediaQuery values = 1.0
+          height: MediaQuery.of(context).size.height * .5,
+          width: MediaQuery.of(context).size.width * .5,
+          child: Draggable(
+            feedback: Container(
+              // specify height & width or else infinite bound error
+              child: ProfileCard(),
+              height: MediaQuery.of(context).size.height * .5,
+              width: MediaQuery.of(context).size.width * .5,
+            ),
+            child: ProfileCard(),
+            childWhenDragging: Container(
+              child: Text('Hello There'),
+            ),
+          ),
         ),
-        child: ProfileCard(),
-        childWhenDragging: Container(
-          child: Text('Hello There'),
-        ),
-      ),
+        Container(
+          height: MediaQuery.of(context).size.height * .5,
+          width: MediaQuery.of(context).size.width * .5,
+          color: Colors.green,
+        )
+      ],
     ),
     bottomNavigationBar: _buildBottomBar(),
     );

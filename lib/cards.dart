@@ -1,6 +1,6 @@
 import 'package:datingapplication/photos.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttery/layout.dart';
+//import 'package:fluttery/layout.dart';
 
 
 

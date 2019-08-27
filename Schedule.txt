@@ -10,3 +10,8 @@ Database to hold bio as string and user's uploaded pictures
 
 Subscription
 Payment for additional services
+
+-------------
+
+Ideas
+Have users occasionally answer questions with list of random user profiles. They can vary from "who looks like a cat/dog person?" and have users guess answers. The result can be shown to the user profiles and used as topic starters for when users match.
