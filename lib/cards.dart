@@ -3,7 +3,22 @@ import 'package:flutter/material.dart';
 //import 'package:fluttery/layout.dart';
 
 
+// test - trying to stack widget into new list
+class MatchCard {
+  int redColor = 0;
+  int greenColor = 0;
+  int blueColor = 0;
+  int margin = 0;
 
+
+  MatchCard(int red, int green, int blue, int marginTop) {
+    redColor = red;
+    greenColor = green;
+    blueColor = blue;
+    margin = marginTop;
+  }
+}
+// test
 
 
 class ProfileCard extends StatefulWidget {

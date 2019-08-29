@@ -36,8 +36,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {  
-
+class _MyHomePageState extends State<MyHomePage> {
   Widget _buildAppBar() {
     return new AppBar(
       backgroundColor: Colors.transparent,
@@ -108,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // ToDo:
               },
-              
             ),
             new RoundIconButton.small(
               icon: Icons.lock,
@@ -123,42 +121,81 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildAppBar(),
-    body: Row(
-      children: <Widget>[
-        Container(
-          // get rid of height & width lines to let the card resume full size, or make MediaQuery values = 1.0
-          height: MediaQuery.of(context).size.height * .5,
-          width: MediaQuery.of(context).size.width * .5,
-          child: Draggable(
-            feedback: Container(
-              // specify height & width or else infinite bound error
+      body: Row(
+        children: <Widget>[
+          Container(
+            // get rid of height & width lines to let the card resume full size, or make MediaQuery values = 1.0
+            height: MediaQuery.of(context).size.height * .5,
+            width: MediaQuery.of(context).size.width * .5,
+            child: Draggable(
+              feedback: Container(
+                // specify height & width or else infinite bound error
+                child: ProfileCard(),
+                height: MediaQuery.of(context).size.height * .5,
+                width: MediaQuery.of(context).size.width * .5,
+              ),
               child: ProfileCard(),
-              height: MediaQuery.of(context).size.height * .5,
-              width: MediaQuery.of(context).size.width * .5,
+              childWhenDragging: Container(
+                child: Text('Hello There'),
+              ),
             ),
-            child: ProfileCard(),
-            childWhenDragging: Container(
-              child: Text('Hello There'),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * .5,
+            width: MediaQuery.of(context).size.width * .5,
+            color: Colors.green,
+          )
+        ],
+      ),
+      bottomNavigationBar: _buildBottomBar(),
+    );
+  }
+
+  //test
+  List<Widget> _getMatchCard() {
+    List<MatchCard> cards = new List();
+    cards.add(MatchCard(255, 0, 0, 10));
+    cards.add(MatchCard(0, 255, 0, 20));
+    cards.add(MatchCard(0, 0, 255, 30));
+
+    List<Widget> cardList = new List();
+
+    for (int x = 0; x < 3; x++) {
+      cardList.add(Positioned(
+        top: 30,
+        child: Draggable(
+          childWhenDragging: Container(),
+          feedback: Card(
+            elevation: 12,
+            color: Color.fromARGB(255, cards[x].redColor, cards[x].greenColor, cards[x].blueColor),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Container(
+              width: 240,
+              height: 300,
+            ),
+          ),
+          child: Card(
+            elevation: 12,
+            color: Color.fromARGB(255, cards[x].redColor, cards[x].greenColor, cards[x].blueColor),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Container(
+              width: 240,
+              height: 300,
             ),
           ),
         ),
-        Container(
-          height: MediaQuery.of(context).size.height * .5,
-          width: MediaQuery.of(context).size.width * .5,
-          color: Colors.green,
-        )
-      ],
-    ),
-    bottomNavigationBar: _buildBottomBar(),
-    );
+      ));
+    }
+    return cardList;
   }
+  //test
 }
-
 
 class RoundIconButton extends StatelessWidget {
   final IconData icon;
@@ -185,22 +222,20 @@ class RoundIconButton extends StatelessWidget {
     this.onPressed,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return new Container(
       width: size,
       height: size,
       decoration: new BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
-        boxShadow: [
-          new BoxShadow(
-            color: const Color(0x11000000),
-            blurRadius: 10.0,
-          )
-        ]
-      ),
+          shape: BoxShape.circle,
+          color: Colors.white,
+          boxShadow: [
+            new BoxShadow(
+              color: const Color(0x11000000),
+              blurRadius: 10.0,
+            )
+          ]),
       child: new RawMaterialButton(
         shape: new CircleBorder(),
         elevation: 0.0,
