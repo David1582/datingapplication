@@ -37,6 +37,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Widget> cardList;
+
+  void _removeCard(index) {
+    setState(() {
+      cardList.removeAt(index);
+    });
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+    cardList = _getMatchCard();
+    
+  }
+
+
   Widget _buildAppBar() {
     return new AppBar(
       backgroundColor: Colors.transparent,
@@ -125,32 +141,43 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildAppBar(),
-      body: Row(
-        children: <Widget>[
-          Container(
-            // get rid of height & width lines to let the card resume full size, or make MediaQuery values = 1.0
-            height: MediaQuery.of(context).size.height * .5,
-            width: MediaQuery.of(context).size.width * .5,
-            child: Draggable(
-              feedback: Container(
-                // specify height & width or else infinite bound error
-                child: ProfileCard(),
-                height: MediaQuery.of(context).size.height * .5,
-                width: MediaQuery.of(context).size.width * .5,
-              ),
-              child: ProfileCard(),
-              childWhenDragging: Container(
-                child: Text('Hello There'),
-              ),
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * .5,
-            width: MediaQuery.of(context).size.width * .5,
-            color: Colors.green,
-          )
-        ],
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: cardList,
+        ),
       ),
+      // this is the user profiles
+        // children: <Widget>[
+        //   Container(
+        //     // get rid of height & width lines to let the card resume full size, or make MediaQuery values = 1.0
+        //     height: MediaQuery.of(context).size.height * .5,
+        //     width: MediaQuery.of(context).size.width * .3,
+        //     child: Draggable(
+        //       feedback: Container(
+        //         // specify height & width or else infinite bound error
+        //         child: ProfileCard(),
+        //         height: MediaQuery.of(context).size.height * .5,
+        //         width: MediaQuery.of(context).size.width * .5,
+        //       ),
+        //       child: ProfileCard(),
+        //       childWhenDragging: Container(
+        //         child: Text('Hello There'),
+        //       ),
+        //     ),
+        //   ),
+        //   Container(
+        //     height: MediaQuery.of(context).size.height * .5,
+        //     width: MediaQuery.of(context).size.width * .3,
+        //     color: Colors.green,
+        //   ),
+          
+          // Container(
+          //   height: MediaQuery.of(context).size.height * .5,
+          //   width: MediaQuery.of(context).size.width * .3,
+          //   color: Colors.orange,
+          // )
+        // ],
       bottomNavigationBar: _buildBottomBar(),
     );
   }
@@ -166,8 +193,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     for (int x = 0; x < 3; x++) {
       cardList.add(Positioned(
-        top: 30,
+        top: cards[x].margin,
         child: Draggable(
+          onDragEnd: (drag) {
+            _removeCard(x);
+          },
           childWhenDragging: Container(),
           feedback: Card(
             elevation: 12,
