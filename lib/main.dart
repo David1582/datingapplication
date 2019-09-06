@@ -46,12 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     cardList = _getMatchCard();
-    
   }
-
 
   Widget _buildAppBar() {
     return new AppBar(
@@ -148,36 +146,36 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       // this is the user profiles
-        // children: <Widget>[
-        //   Container(
-        //     // get rid of height & width lines to let the card resume full size, or make MediaQuery values = 1.0
-        //     height: MediaQuery.of(context).size.height * .5,
-        //     width: MediaQuery.of(context).size.width * .3,
-        //     child: Draggable(
-        //       feedback: Container(
-        //         // specify height & width or else infinite bound error
-        //         child: ProfileCard(),
-        //         height: MediaQuery.of(context).size.height * .5,
-        //         width: MediaQuery.of(context).size.width * .5,
-        //       ),
-        //       child: ProfileCard(),
-        //       childWhenDragging: Container(
-        //         child: Text('Hello There'),
-        //       ),
-        //     ),
-        //   ),
-        //   Container(
-        //     height: MediaQuery.of(context).size.height * .5,
-        //     width: MediaQuery.of(context).size.width * .3,
-        //     color: Colors.green,
-        //   ),
-          
-          // Container(
-          //   height: MediaQuery.of(context).size.height * .5,
-          //   width: MediaQuery.of(context).size.width * .3,
-          //   color: Colors.orange,
-          // )
-        // ],
+      // children: <Widget>[
+      //   Container(
+      //     // get rid of height & width lines to let the card resume full size, or make MediaQuery values = 1.0
+      //     height: MediaQuery.of(context).size.height * .5,
+      //     width: MediaQuery.of(context).size.width * .3,
+      //     child: Draggable(
+      //       feedback: Container(
+      //         // specify height & width or else infinite bound error
+      //         child: ProfileCard(),
+      //         height: MediaQuery.of(context).size.height * .5,
+      //         width: MediaQuery.of(context).size.width * .5,
+      //       ),
+      //       child: ProfileCard(),
+      //       childWhenDragging: Container(
+      //         child: Text('Hello There'),
+      //       ),
+      //     ),
+      //   ),
+      //   Container(
+      //     height: MediaQuery.of(context).size.height * .5,
+      //     width: MediaQuery.of(context).size.width * .3,
+      //     color: Colors.green,
+      //   ),
+
+      // Container(
+      //   height: MediaQuery.of(context).size.height * .5,
+      //   width: MediaQuery.of(context).size.width * .3,
+      //   color: Colors.orange,
+      // )
+      // ],
       bottomNavigationBar: _buildBottomBar(),
     );
   }
@@ -185,9 +183,9 @@ class _MyHomePageState extends State<MyHomePage> {
   //test
   List<Widget> _getMatchCard() {
     List<MatchCard> cards = new List();
-    cards.add(MatchCard(255, 0, 0, 10));
-    cards.add(MatchCard(0, 255, 0, 20));
-    cards.add(MatchCard(0, 0, 255, 30));
+    cards.add(MatchCard(10));
+    cards.add(MatchCard(20));
+    cards.add(MatchCard(30));
 
     List<Widget> cardList = new List();
 
@@ -200,23 +198,23 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           childWhenDragging: Container(),
           feedback: Card(
-            elevation: 12,
-            color: Color.fromARGB(255, cards[x].redColor, cards[x].greenColor, cards[x].blueColor),
+            elevation: 10,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Container(
-              width: 240,
-              height: 300,
+              width: 400,
+              height: 500,
+              child: ProfileCard1(),
             ),
           ),
           child: Card(
-            elevation: 12,
-            color: Color.fromARGB(255, cards[x].redColor, cards[x].greenColor, cards[x].blueColor),
+            elevation: 10,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Container(
-              width: 240,
-              height: 300,
+              width: 400,
+              height: 500,
+              child: ProfileCard1(),
             ),
           ),
         ),
